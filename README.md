@@ -1,5 +1,4 @@
 # plant-app-frontend
-###### 2024 베리어프리 앱개발 공모전 - 현대오토에버
 ---
 ##### team. 구구마 팀원
 * ###### 이주영 https://github.com/jylee092
