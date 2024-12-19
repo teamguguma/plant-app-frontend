@@ -176,6 +176,12 @@ class CameraActivity : AppCompatActivity() {
                     val jsonResponse = JSONObject(responseBody)
                     val message = jsonResponse.optString("message", "식별 실패")
 
+                    // 메시지에 "다시 촬영해주세요"가 포함된 경우에만 안내 표시
+                    if (message.contains("다시 촬영해주세요")) {
+                        runOnUiThread {
+                            showWarningDialog(message) // 다이얼로그로 안내 표시
+                        }
+                    }
                     runOnUiThread { handleServerMessage(message, bitmap) }
                 } else {
                     runOnUiThread { showWarningDialog("서버 응답이 없습니다.") }

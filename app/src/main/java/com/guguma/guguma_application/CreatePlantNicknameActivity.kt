@@ -31,14 +31,18 @@ class CreatePlantNicknameActivity : AppCompatActivity() {
         // 데이터 수신 및 검증
         plantName = intent.getStringExtra("plantName")
         val imageUriString = intent.getStringExtra("imageUri")
-        if (plantName == null || imageUriString == null) {
-            Toast.makeText(this, "데이터를 가져오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
-            finish()
+
+        if (plantName.isNullOrEmpty() || imageUriString.isNullOrEmpty()) {
+            showErrorAndFinish("필수 데이터가 누락되었습니다.")
             return
         }
 
-        imageUri = Uri.parse(imageUriString)
-
+        try {
+            imageUri = Uri.parse(imageUriString)
+        } catch (e: Exception) {
+            showErrorAndFinish("이미지 URI를 파싱하는 데 실패했습니다.")
+            return
+        }
         // 이미지 설정
         Glide.with(this)
             .load(imageUri)
@@ -65,5 +69,10 @@ class CreatePlantNicknameActivity : AppCompatActivity() {
             putExtra("plantNickname", nickname)
         }
         startActivity(intent)
+    }
+
+    private fun showErrorAndFinish(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        finish() // 현재 Activity 종료
     }
 }
