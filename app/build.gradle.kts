@@ -33,11 +33,13 @@ android {
         // 기본 URL 및 엔드포인트를 BuildConfig에 추가
         val baseUrl = localProperties.getProperty("api.ngrok.base.url", "http://localhost:8080/api")
         val detectPath = localProperties.getProperty("api.plant.detect")
-
+        val recognizePath = localProperties.getProperty("api.plant.recognize")
         buildConfigField("String", "BASE_URL", "\"${baseUrl}\"")
 
         buildConfigField("String", "API_PLANT_DETECT", "\"$detectPath\"") // 식물 위치인식(aws에 따로 서버)
-        buildConfigField("String", "API_PLANT_RECOGNIZE", "\"$baseUrl/plants/recognize\"") // 식물 이름인식
+        buildConfigField("String", "API_PLANT_RECOGNIZE", "\"$recognizePath\"") // 식물 이름인식(aws에 따로 서버)
+
+        //buildConfigField("String", "API_PLANT_RECOGNIZE", "\"$baseUrl/plants/recognize\"") // 식물 이름인식
         buildConfigField("String", "API_PLANT_DELETE_TEMPLATE", "\"$baseUrl/plants/delete/{id}\"")
         buildConfigField("String", "API_PLANT_LIST_TEMPLATE", "\"$baseUrl/plants/user/{userId}\"")
         buildConfigField("String", "API_PLANT_CREATE", "\"$baseUrl/plants/create\"") // 식물 추가
